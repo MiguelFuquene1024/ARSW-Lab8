@@ -86,13 +86,13 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
 
 11. Una vez el cambio se vea reflejado, repita el paso 7, 8 y 9.
 
-Tiempos de prueba con valores altos
+Tiempos de prueba con valores altos  
 ![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times2.jpeg)
 
-Uso medio del CPU
+Uso medio del CPU  
 ![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio2.jpeg)
 
-Datos de pruebas postman
+Datos de pruebas postman  
 ![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Datos2.PNG)
 
 
