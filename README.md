@@ -86,7 +86,15 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
 
 11. Una vez el cambio se vea reflejado, repita el paso 7, 8 y 9.
 
+Tiempos de prueba con valores altos  
 ![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times2.jpeg)
+
+Uso medio del CPU  
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio2.jpeg)
+
+Datos de pruebas postman  
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Datos2.PNG)
+
 
 12. Evalue el escenario de calidad asociado al requerimiento no funcional de escalabilidad y concluya si usando este modelo de escalabilidad logramos cumplirlo.
 13. Vuelva a dejar la VM en el tamaño inicial para evitar cobros adicionales.
