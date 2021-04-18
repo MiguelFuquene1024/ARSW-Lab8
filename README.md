@@ -121,11 +121,47 @@ Datos de pruebas postman
 	- El *Inbound port rule* se usa para que se tenga un acceso al servicio publico.
 
 4. Adjunte tabla de tiempos e interprete por qué la función tarda tando tiempo.
+
+	Se menciono lo mal construirdo que esta FibinacciApp, entonces revisando el js vemos que debe realizar muchas recursiones sin un cache que guarde datos anteriores. Se explica mejor con un ejemplo, si buscamos el 10000 entonces las hará y tardará más, por lo que si seguidamente buscamos 11000, tenemos un cache pues seguirá desde 10000 y solo tendrá que hacer 1000 recursiones ahorrando tiempo de ejecución 
+
+	Sin Escalamiento  
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times2.jpeg)
+
+	Con Escalamiento  
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times2.jpeg)  
 5. Adjunte imágen del consumo de CPU de la VM e interprete por qué la función consume esa cantidad de CPU.
+
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio.jpeg)
+	
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio2.jpeg)
+
+	Se puede ver como antes del escalamiento consume más del 40% de la CPU en picos y despues ya este no supera el 40% de consumo pues el tamaño se ha mejorado considerablemente, pasando de 0.5 de RAM a 8 y de vCPU de tener 1 a 2. Por lo que la estrategia de escalamiento se resume en esto claramente
+
 6. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:
-    * Tiempos de ejecución de cada petición.
+    * Tiempos de ejecución de cada petición.  
+	Sin escalamiento  
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Datos.jpeg)  
+	Con escalamiento  
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Datos2.PNG)
+	
+	Gracias al escalamiento se ve que hay una mejoría en el tiempo de respuesta considerable
+	
     * Si hubo fallos documentelos y explique.
+	- No tuvimos fallos a la hora de realizar las pruebas
 7. ¿Cuál es la diferencia entre los tamaños `B2ms` y `B1ls` (no solo busque especificaciones de infraestructura)?
+
+	`B1ls`
+	- 1 vCPU
+	- 0.5 RAM
+	- 2 Discos de datos
+	- `B1ls` es mejor para entornos pequeños y de pruebas como servidores web, bases de datos o cualquier otro entorno de desarrollo.
+	
+	`B2ms`
+	- 2 vCPU
+	- 8 RAM
+	- 4 Discos de datos
+	- `B2ms` parece mas enfocada a entonros de uso medio, ya sea servidores web, conexiones, servidores DNS, pruebas en sistemas operativos con carga media. etc
+
 8. ¿Aumentar el tamaño de la VM es una buena solución en este escenario?, ¿Qué pasa con la FibonacciApp cuando cambiamos el tamaño de la VM?
 9. ¿Qué pasa con la infraestructura cuando cambia el tamaño de la VM? ¿Qué efectos negativos implica?
 10. ¿Hubo mejora en el consumo de CPU o en los tiempos de respuesta? Si/No ¿Por qué?
