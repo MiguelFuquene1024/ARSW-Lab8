@@ -87,10 +87,10 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
 11. Una vez el cambio se vea reflejado, repita el paso 7, 8 y 9.
 
 Tiempos de prueba con valores altos  
-![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times2.jpeg)
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times2.PNG)
 
 Uso medio del CPU  
-![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio2.jpeg)
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio2.PNG)
 
 Datos de pruebas postman  
 ![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Datos2.PNG)
@@ -128,12 +128,12 @@ Datos de pruebas postman
 	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times2.jpeg)
 
 	Con Escalamiento  
-	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times2.jpeg)  
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times2.PNG)  
 5. Adjunte imágen del consumo de CPU de la VM e interprete por qué la función consume esa cantidad de CPU.
 
 	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio.jpeg)
 	
-	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio2.jpeg)
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio2.PNG)
 
 	Se puede ver como antes del escalamiento consume más del 40% de la CPU en picos y despues ya este no supera el 40% de consumo pues el tamaño se ha mejorado considerablemente, pasando de 0.5 de RAM a 8 y de vCPU de tener 1 a 2. Por lo que la estrategia de escalamiento se resume en esto claramente
 
@@ -163,8 +163,11 @@ Datos de pruebas postman
 	- `B2ms` parece mas enfocada a entonros de uso medio, ya sea servidores web, conexiones, servidores DNS, pruebas en sistemas operativos con carga media. etc
 
 8. ¿Aumentar el tamaño de la VM es una buena solución en este escenario?, ¿Qué pasa con la FibonacciApp cuando cambiamos el tamaño de la VM?
+	- Es una facil y rapida solución, pues se ve en los cambios de tiempos. Sin embargo una solución que requiere menos costo es mejorar el codigo de FibinacciApp con un cache
 9. ¿Qué pasa con la infraestructura cuando cambia el tamaño de la VM? ¿Qué efectos negativos implica?
+	- LO negativo de estos cambios son los costos mas elevados que implica mantener el tamaño `B2ms`
 10. ¿Hubo mejora en el consumo de CPU o en los tiempos de respuesta? Si/No ¿Por qué?
+	- Los tiempos de respuesta no tienen una diferencia muy elevada pero es notable, por lo que sin importar lo primero podemos decir que SI hubo mejora en el consupo de la CPU y tiempos de respuesta
 11. Aumente la cantidad de ejecuciones paralelas del comando de postman a `4`. ¿El comportamiento del sistema es porcentualmente mejor?
 
 ### Parte 2 - Escalabilidad horizontal
