@@ -245,6 +245,14 @@ http://52.155.223.248/fibonacci/1
 
 2. Realice las pruebas de carga con `newman` que se realizaron en la parte 1 y haga un informe comparativo donde contraste: tiempos de respuesta, cantidad de peticiones respondidas con éxito, costos de las 2 infraestrucruras, es decir, la que desarrollamos con balanceo de carga horizontal y la que se hizo con una maquina virtual escalada.
 
+- Pruebas NewMan como en el primer punto:
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBAENSIMULTANEO.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBADEA2.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBADEA22.png)
+
 3. Agregue una 4 maquina virtual y realice las pruebas de newman, pero esta vez no lance 2 peticiones en paralelo, sino que incrementelo a 4. Haga un informe donde presente el comportamiento de la CPU de las 4 VM y explique porque la tasa de éxito de las peticiones aumento con este estilo de escalabilidad.
 
 ```
@@ -253,6 +261,31 @@ newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALAN
 newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10 &
 newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10
 ```
+- Pruebas con 4 peticiones:
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBAENSIMULTANEO.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBADEA41.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBADEA42.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBADEA43.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBADEA44.png)
+
+- Comparación peticiones fallidas:
+
+A comparacion del punto anterior el balanceo de carga horizontal falló mas veces a comparación de la maquina virtualizada teniendo un resultado de 3 fallas mientras que el anterior nada mas tuvo 1.
+
+- Comparación tiempo de ejecución:
+
+Comparando el tiempo de respuesta de los dos metodos de escalamiento se evidencia que el balanceo de carga obtiene respuesta mucho mas rapida que la otra, esto debido a que cada petición la realiza a una maquina virtual diferente, mientras que el otro metodo que tiene que calcular todas. (En el metodo vertical se redujo el valor a calcular ya que no se obtenia respuesta).
+
+- Comparación costos:
+
+Tenemos que por cada maquina virtual ejecutandose hay un costo de 0.057$/hora, ademas por un balanceador de carga 0.022$/hora, adicionalmente por el aumento de memoria para el metodo vertical hay un costo adicional.
+
+Teniendo en cuenta esto es mucho mas costoso realizar el escalamiento horizontal ya que se tienen 4 maquinas y un balanceador de carga.
 
 **Preguntas**
 
