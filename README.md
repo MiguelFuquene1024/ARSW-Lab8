@@ -180,9 +180,12 @@ Antes de continuar puede eliminar el grupo de recursos anterior para evitar gast
 
 ![](images/part2/part2-lb-create.png)
 
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/BALANCEADORCREADO.png)
+
 2. A continuación cree un *Backend Pool*, guiese con la siguiente imágen.
 
 ![](images/part2/part2-lb-bp-create.png)
+
 
 3. A continuación cree un *Health Probe*, guiese con la siguiente imágen.
 
@@ -192,9 +195,13 @@ Antes de continuar puede eliminar el grupo de recursos anterior para evitar gast
 
 ![](images/part2/part2-lb-lbr-create.png)
 
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/REGLABALANCEADOR.png)
+
 5. Cree una *Virtual Network* dentro del grupo de recursos, guiese con la siguiente imágen.
 
 ![](images/part2/part2-vn-create.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/REDVIRTUAL.png)
 
 #### Crear las maquinas virtuales (Nodos)
 
@@ -231,8 +238,11 @@ npm install
 npm install forever -g
 forever start FibonacciApp.js
 ```
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/FIBONACCIINSTALL.png)
 
 Realice este proceso para las 3 VMs, por ahora lo haremos a mano una por una, sin embargo es importante que usted sepa que existen herramientas para aumatizar este proceso, entre ellas encontramos Azure Resource Manager, OsDisk Images, Terraform con Vagrant y Paker, Puppet, Ansible entre otras.
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/recursos.PNG)
 
 #### Probar el resultado final de nuestra infraestructura
 
@@ -242,6 +252,11 @@ Realice este proceso para las 3 VMs, por ahora lo haremos a mano una por una, si
 http://52.155.223.248/
 http://52.155.223.248/fibonacci/1
 ```
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/HELLO.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBACON1.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBACON1000.png)
 
 2. Realice las pruebas de carga con `newman` que se realizaron en la parte 1 y haga un informe comparativo donde contraste: tiempos de respuesta, cantidad de peticiones respondidas con éxito, costos de las 2 infraestrucruras, es decir, la que desarrollamos con balanceo de carga horizontal y la que se hizo con una maquina virtual escalada.
 
@@ -292,8 +307,8 @@ Teniendo en cuenta esto es mucho mas costoso realizar el escalamiento horizontal
 * ¿Cuáles son los tipos de balanceadores de carga en Azure y en qué se diferencian?, ¿Qué es SKU, qué tipos hay y en qué se diferencian?, ¿Por qué el balanceador de carga necesita una IP pública?
 ```
 - Existen 2 tipos de balanceadores de carga en Azure, el balanceador público y el privado o interno, se diferencian en que el balanceador público está hecho para dar conexiones de salida para las máquinas virtuales, mientras que el interno se utilizan para realizar el equilibrio de la carga dentro de una red virtual.
-- Se refiere a una representacion para comprar existencias por debajo de un producto. Estos representan las diferentes formas del producto.
-- Para añadir un punto de conexión a los perfiles Traffic Manager, además que este será el punto por el cual se accederá el Front-End
+- Se refiere a una representacion para comprar existencias por debajo de un producto. Los SKU representan las diferentes formas del producto.
+- El balanceador de carga necesita una IP pública para añadir un punto de conexión a los perfiles Traffic Manager, adicionalmente que este será el punto por el cual se accederá por medio del browser a el Front
 ```
 
 * ¿Cuál es el propósito del *Backend Pool*?
@@ -302,11 +317,11 @@ Teniendo en cuenta esto es mucho mas costoso realizar el escalamiento horizontal
 ```
 * ¿Cuál es el propósito del *Health Probe*?
 ```
-- Permitir que el, Load Balancer detecte el estado del extremo del backend. La configuración de la sonda de estado y las respuestas de la sonda determinan qué instancias del backend pool recibirán nuevos flujos.
+- Permitir que el Load Balancer detecte el estado del extremo del backend. La configuración de la sonda de estado y las respuestas de esta determinan qué instancias del backend pool recibirán nuevos flujos.
 ```
 * ¿Cuál es el propósito de la *Load Balancing Rule*? ¿Qué tipos de sesión persistente existen, por qué esto es importante y cómo puede afectar la escalabilidad del sistema?.
 ```
-- Definir el tráfico de red atreves de las máquinas virtuales, las sesiones que este permite son sesiones sin definir persistencia o con persistencia definida, esto significa que cuando se realice una misma petition esta será redirigida al cliente original y no a uno nuevo, esto puede afectar a aplicaciones que trabajen con sesiones guardadas en memoria, o en aplicaciones sticky.
+- Definir el tráfico de red que va ahaber a traves de las máquinas virtuales, las sesiones que este permite son sesiones sin definir persistencia o con persistencia definida, esto significa que cuando se realice una misma peticionm esta será redirigida al cliente original y no a uno nuevo.
 ```
 * ¿Qué es una *Virtual Network*? ¿Qué es una *Subnet*? ¿Para qué sirven los *address space* y *address range*?
 ```
@@ -327,6 +342,8 @@ Teniendo en cuenta esto es mucho mas costoso realizar el escalamiento horizontal
 - Informe anexo mas arriba
 ```
 * Presente el Diagrama de Despliegue de la solución.
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/DIAGRAMA%20DE%20DESPLIEGUE.png)
 
 
 
