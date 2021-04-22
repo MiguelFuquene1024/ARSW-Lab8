@@ -245,6 +245,14 @@ http://52.155.223.248/fibonacci/1
 
 2. Realice las pruebas de carga con `newman` que se realizaron en la parte 1 y haga un informe comparativo donde contraste: tiempos de respuesta, cantidad de peticiones respondidas con éxito, costos de las 2 infraestrucruras, es decir, la que desarrollamos con balanceo de carga horizontal y la que se hizo con una maquina virtual escalada.
 
+- Pruebas NewMan como en el primer punto:
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBAENSIMULTANEO.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBADEA2.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBADEA22.png)
+
 3. Agregue una 4 maquina virtual y realice las pruebas de newman, pero esta vez no lance 2 peticiones en paralelo, sino que incrementelo a 4. Haga un informe donde presente el comportamiento de la CPU de las 4 VM y explique porque la tasa de éxito de las peticiones aumento con este estilo de escalabilidad.
 
 ```
@@ -253,17 +261,71 @@ newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALAN
 newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10 &
 newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10
 ```
+- Pruebas con 4 peticiones:
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBAENSIMULTANEO.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBADEA41.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBADEA42.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBADEA43.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/PRUEBADEA44.png)
+
+- Comparación peticiones fallidas:
+
+A comparacion del punto anterior el balanceo de carga horizontal falló mas veces a comparación de la maquina virtualizada teniendo un resultado de 3 fallas mientras que el anterior nada mas tuvo 1.
+
+- Comparación tiempo de ejecución:
+
+Comparando el tiempo de respuesta de los dos metodos de escalamiento se evidencia que el balanceo de carga obtiene respuesta mucho mas rapida que la otra, esto debido a que cada petición la realiza a una maquina virtual diferente, mientras que el otro metodo que tiene que calcular todas. (En el metodo vertical se redujo el valor a calcular ya que no se obtenia respuesta).
+
+- Comparación costos:
+
+Tenemos que por cada maquina virtual ejecutandose hay un costo de 0.057$/hora, ademas por un balanceador de carga 0.022$/hora, adicionalmente por el aumento de memoria para el metodo vertical hay un costo adicional.
+
+Teniendo en cuenta esto es mucho mas costoso realizar el escalamiento horizontal ya que se tienen 4 maquinas y un balanceador de carga.
 
 **Preguntas**
 
 * ¿Cuáles son los tipos de balanceadores de carga en Azure y en qué se diferencian?, ¿Qué es SKU, qué tipos hay y en qué se diferencian?, ¿Por qué el balanceador de carga necesita una IP pública?
+```
+- Existen 2 tipos de balanceadores de carga en Azure, el balanceador público y el privado o interno, se diferencian en que el balanceador público está hecho para dar conexiones de salida para las máquinas virtuales, mientras que el interno se utilizan para realizar el equilibrio de la carga dentro de una red virtual.
+- Se refiere a una representacion para comprar existencias por debajo de un producto. Estos representan las diferentes formas del producto.
+- Para añadir un punto de conexión a los perfiles Traffic Manager, además que este será el punto por el cual se accederá el Front-End
+```
+
 * ¿Cuál es el propósito del *Backend Pool*?
+```
+- El pool de backend es un componente crítico del balanceador de carga. El pool de backend define el grupo de recursos que servirá el tráfico para una regla de equilibrio de carga determinada.
+```
 * ¿Cuál es el propósito del *Health Probe*?
+```
+- Permitir que el, Load Balancer detecte el estado del extremo del backend. La configuración de la sonda de estado y las respuestas de la sonda determinan qué instancias del backend pool recibirán nuevos flujos.
+```
 * ¿Cuál es el propósito de la *Load Balancing Rule*? ¿Qué tipos de sesión persistente existen, por qué esto es importante y cómo puede afectar la escalabilidad del sistema?.
+```
+- Definir el tráfico de red atreves de las máquinas virtuales, las sesiones que este permite son sesiones sin definir persistencia o con persistencia definida, esto significa que cuando se realice una misma petition esta será redirigida al cliente original y no a uno nuevo, esto puede afectar a aplicaciones que trabajen con sesiones guardadas en memoria, o en aplicaciones sticky.
+```
 * ¿Qué es una *Virtual Network*? ¿Qué es una *Subnet*? ¿Para qué sirven los *address space* y *address range*?
+```
+- Es el bloque de creación fundamental de una red privada en Azure. VNet permite muchos tipos de recursos de Azure, como Azure Virtual Machines (máquinas virtuales), para comunicarse de forma segura entre usuarios, con Internet y con las redes locales.
+- Es un rango de direcciones lógicas, que se utiliza normalmente cuando se tienen redes demasiado grandes, estos son divididas en redes más pequeñas; estas se conocen como subnets
+- Los address space son aquellas direcciones de red asignables dentro de una Vnt y los address range son las redes asignables dentro de una subnet.
+```
 * ¿Qué son las *Availability Zone* y por qué seleccionamos 3 diferentes zonas?. ¿Qué significa que una IP sea *zone-redundant*?
+```
+- Una zona de disponibilidad es una oferta de alta disponibilidad que protege sus aplicaciones y datos de los fallos del centro de datos. Las zonas de disponibilidad son ubicaciones físicas únicas dentro de una región de Azure. Cuando una IP es zone-redundant es aquella que replica las peticiones y los datos por medio de las Availability Zone.
+```
 * ¿Cuál es el propósito del *Network Security Group*?
+```
+- Puede utilizar un grupo de seguridad de red de Azure para filtrar el tráfico de red hacia y desde los recursos de Azure en una red virtual de Azure. Un grupo de seguridad de red contiene reglas de seguridad que permiten o deniegan el tráfico de red entrante hacia, o el tráfico de red saliente desde, varios tipos de recursos de Azure. Para cada regla, puede especificar el origen y el destino, el puerto y el protocolo.
+```
 * Informe de newman 1 (Punto 2)
+```
+- Informe anexo mas arriba
+```
 * Presente el Diagrama de Despliegue de la solución.
 
 
