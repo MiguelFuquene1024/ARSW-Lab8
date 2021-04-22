@@ -60,9 +60,14 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
     * 1080000
     * 1090000    
 
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times.jpeg)
+
 8. Dírijase ahora a Azure y verifique el consumo de CPU para la VM. (Los resultados pueden tardar 5 minutos en aparecer).
 
 ![Imágen 2](images/part1/part1-vm-cpu.png)
+
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio.jpeg)
 
 9. Ahora usaremos Postman para simular una carga concurrente a nuestro sistema. Siga estos pasos.
     * Instale newman con el comando `npm install newman -g`. Para conocer más de Newman consulte el siguiente [enlace](https://learning.getpostman.com/docs/postman/collection-runs/command-line-integration-with-newman/).
@@ -80,23 +85,89 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
 ![Imágen 3](images/part1/part1-vm-resize.png)
 
 11. Una vez el cambio se vea reflejado, repita el paso 7, 8 y 9.
+
+Tiempos de prueba con valores altos  
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times2.PNG)
+
+Uso medio del CPU  
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio2.PNG)
+
+Datos de pruebas postman  
+![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Datos2.PNG)
+
+
 12. Evalue el escenario de calidad asociado al requerimiento no funcional de escalabilidad y concluya si usando este modelo de escalabilidad logramos cumplirlo.
 13. Vuelva a dejar la VM en el tamaño inicial para evitar cobros adicionales.
 
 **Preguntas**
 
-1. ¿Cuántos y cuáles recursos crea Azure junto con la VM?
-2. ¿Brevemente describa para qué sirve cada recurso?
-3. ¿Al cerrar la conexión ssh con la VM, por qué se cae la aplicación que ejecutamos con el comando `npm FibonacciApp.js`? ¿Por qué debemos crear un *Inbound port rule* antes de acceder al servicio?
+1. ¿Cuántos y cuáles recursos crea Azure junto con la VM?  
+	Cuenta con 8 recursos que son los siguientes:  
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/recursos.PNG)
+	
+2. ¿Brevemente describa para qué sirve cada recurso?  
+	- La maquina virtual es lo que Azure ofrece para alojar la aplicación sin hardware fisico.
+	
+	- La clave SSH y el grupo de eseguridad de red mantienen la seguridad en la maquina virtual (integridad, disponibilidad y confidencialidad), junto con reglas que permiten o niegan la entrada o salida de trafico
+
+	- La direccion IP publica nos permite conectarnos remotamente a la maquina virtual
+	
+	- El disco es el almacenamiento de nuestra maquina virtual
+
+	- La interfaz de red y la vnet nos permite comunicarnos con el internet, recursos de Azure y redes locales de forma segura.
+
+3. ¿Al cerrar la conexión ssh con la VM, por qué se cae la aplicación que ejecutamos con el comando `npm FibonacciApp.js`? ¿Por qué debemos crear un *Inbound port rule* antes de acceder al servicio?  
+	- Al cerrar la conexión se esta temrinando el proceso que lleva `FibonacciApp.js` y pues este lleva la aplicación por lo que en consecuencia caerá
+	- El *Inbound port rule* se usa para que se tenga un acceso al servicio publico.
+
 4. Adjunte tabla de tiempos e interprete por qué la función tarda tando tiempo.
+
+	Se menciono lo mal construirdo que esta FibinacciApp, entonces revisando el js vemos que debe realizar muchas recursiones sin un cache que guarde datos anteriores. Se explica mejor con un ejemplo, si buscamos el 10000 entonces las hará y tardará más, por lo que si seguidamente buscamos 11000, tenemos un cache pues seguirá desde 10000 y solo tendrá que hacer 1000 recursiones ahorrando tiempo de ejecución 
+
+	Sin Escalamiento  
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times2.jpeg)
+
+	Con Escalamiento  
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Times2.PNG)  
 5. Adjunte imágen del consumo de CPU de la VM e interprete por qué la función consume esa cantidad de CPU.
+
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio.jpeg)
+	
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Uso-Medio2.PNG)
+
+	Se puede ver como antes del escalamiento consume más del 40% de la CPU en picos y despues ya este no supera el 40% de consumo pues el tamaño se ha mejorado considerablemente, pasando de 0.5 de RAM a 8 y de vCPU de tener 1 a 2. Por lo que la estrategia de escalamiento se resume en esto claramente
+
 6. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:
-    * Tiempos de ejecución de cada petición.
+    * Tiempos de ejecución de cada petición.  
+	Sin escalamiento  
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Datos.jpeg)  
+	Con escalamiento  
+	![](https://github.com/MiguelFuquene1024/ARSW-Lab8/blob/master/images/Lab%208/Datos2.PNG)
+	
+	Gracias al escalamiento se ve que hay una mejoría en el tiempo de respuesta considerable
+	
     * Si hubo fallos documentelos y explique.
+	- No tuvimos fallos a la hora de realizar las pruebas
 7. ¿Cuál es la diferencia entre los tamaños `B2ms` y `B1ls` (no solo busque especificaciones de infraestructura)?
+
+	`B1ls`
+	- 1 vCPU
+	- 0.5 RAM
+	- 2 Discos de datos
+	- `B1ls` es mejor para entornos pequeños y de pruebas como servidores web, bases de datos o cualquier otro entorno de desarrollo.
+	
+	`B2ms`
+	- 2 vCPU
+	- 8 RAM
+	- 4 Discos de datos
+	- `B2ms` parece mas enfocada a entonros de uso medio, ya sea servidores web, conexiones, servidores DNS, pruebas en sistemas operativos con carga media. etc
+
 8. ¿Aumentar el tamaño de la VM es una buena solución en este escenario?, ¿Qué pasa con la FibonacciApp cuando cambiamos el tamaño de la VM?
+	- Es una facil y rapida solución, pues se ve en los cambios de tiempos. Sin embargo una solución que requiere menos costo es mejorar el codigo de FibinacciApp con un cache
 9. ¿Qué pasa con la infraestructura cuando cambia el tamaño de la VM? ¿Qué efectos negativos implica?
+	- LO negativo de estos cambios son los costos mas elevados que implica mantener el tamaño `B2ms`
 10. ¿Hubo mejora en el consumo de CPU o en los tiempos de respuesta? Si/No ¿Por qué?
+	- Los tiempos de respuesta no tienen una diferencia muy elevada pero es notable, por lo que sin importar lo primero podemos decir que SI hubo mejora en el consupo de la CPU y tiempos de respuesta
 11. Aumente la cantidad de ejecuciones paralelas del comando de postman a `4`. ¿El comportamiento del sistema es porcentualmente mejor?
 
 ### Parte 2 - Escalabilidad horizontal
